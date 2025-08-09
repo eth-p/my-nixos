@@ -11,6 +11,10 @@ in {
   options.my-nixos.desktop.plasma = {
     enable = lib.mkEnableOption "install KDE Plasma desktop environment";
 
+    useVulkan = lib.mkEnableOption "use Vulkan for the compositing backend" // {
+      default = true;
+    };
+
     kvantum = { enable = lib.mkEnableOption "install kvantum theme engine"; };
 
     krunner = {
@@ -40,6 +44,15 @@ in {
 
       programs.partition-manager.enable = true;
     }
+
+    # Configure kwin to use Vulkan as the graphics API.
+    # This may fix an issue with random white lines on Nvidia cards.
+    (mkIf cfg.useVulkan {
+      environment.etc."xdg/kwinrc".text = ''
+        [Compositing]
+        GraphicsApi=Vulkan
+      '';
+    })
 
     (mkIf cfg.krunner.vscode.enable {
       environment.systemPackages = with pkgs; [ vscode-runner ];
