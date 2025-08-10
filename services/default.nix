@@ -4,5 +4,6 @@ inputs: {
     ./flatpak.nix
     ./fwupd.nix
     ./nix.nix
+    ./syncthing.nix
   ];
 }
