@@ -32,12 +32,6 @@ in {
 
         package = cfg.package;
       };
-
-      # Workaround:
-      # https://forums.developer.nvidia.com/t/580-65-06-gtk-4-apps-hang-when-attempting-to-exit-close/341308/3
-      environment.sessionVariables = {
-        GSK_RENDERER = "ngl";
-      };
     }
 
     (mkIf config.services.xserver.enable {
