@@ -10,8 +10,8 @@ pkgs.stdenv.mkDerivation {
   version = "main";
   src = pkgs.fetchgit {
     url = "https://github.com/ekaaty/vinyl-theme.git";
-    rev = "579a7098c1c94fcf5eb490f4222744ef7bb7056d";
-    hash = "sha256-UTxoqfElVdLyrn+SDBCZOxubxHu6MhxT65js2IKRNIY=";
+    rev = "v6.4.4";
+    hash = "sha256-2CoO9xJwRvuoUZFr2qgtllbf9PsTV1xZxHMxh9CMtpo=";
   };
 
   outputs = [ "dev" "out" ];
