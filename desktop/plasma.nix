@@ -23,6 +23,10 @@ in {
     };
 
     themes = { vinyl = lib.mkEnableOption "install the Vinyl theme"; };
+
+    kdeconnect = {
+      enable = lib.mkEnableOption "install KDE Connect";
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -68,6 +72,10 @@ in {
     (mkIf cfg.themes.vinyl {
       environment.systemPackages =
         [ (import ../patches/kde-theme-vinyl.nix inputs) ];
+    })
+
+    (mkIf cfg.kdeconnect.enable {
+      programs.kdeconnect.enable = true;
     })
 
   ]);
