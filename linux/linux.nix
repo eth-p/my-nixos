@@ -36,7 +36,13 @@ in {
 
     # Install useful tools.
     {
-      environment.systemPackages = with pkgs; [ usbutils pciutils file ];
+      environment.systemPackages = with pkgs; [
+        usbutils
+        pciutils
+        file
+        pv
+        killall
+      ];
     }
 
     # Enable features required for unlocking volumes via TPM 2.0.
