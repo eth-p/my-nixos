@@ -25,14 +25,22 @@ in
       default = pkgs.gpu-screen-recorder;
     };
 
-    ui.enable = lib.mkEnableOption "install a UI for gpu-screen-recorder" // {
-      default = true;
-    };
+    ui = {
+      enable = lib.mkEnableOption "install a UI for gpu-screen-recorder" // {
+        default = true;
+      };
 
-    ui.package = lib.mkOption {
-      type = lib.types.package;
-      description = "The UI package for gpu-screen-recorder.";
-      default = pkgs.gpu-screen-recorder-ui;
+      package = lib.mkOption {
+        type = lib.types.package;
+        description = "The UI package for gpu-screen-recorder.";
+        default = pkgs.gpu-screen-recorder-ui;
+      };
+
+      autostart = lib.mkOption {
+        type = lib.types.bool;
+        description = "start gpu-screen-recorder on login";
+        default = true;
+      };
     };
   };
 
@@ -67,7 +75,21 @@ in
         gpu-screen-recorder-ui
         gpu-screen-recorder-notification
       ];
+    })
 
+    # Add systemd user service for starting gpu-screen-recorder on login.
+    (mkIf (cfg.ui.enable && cfg.ui.autostart) {
+      systemd.user.services.gpu-screen-recorder = {
+        enable = true;
+        wantedBy = [ "graphical-session.target" ];
+        description = "GPU Screen Recorder Overlay";
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = cfg.ui.package + "/bin/" + cfg.ui.package.meta.mainProgram;
+          Restart = "on-failure";
+          RestartSec = 30;
+        };
+      };
     })
 
   ]);
