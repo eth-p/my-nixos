@@ -4,4 +4,7 @@
 # This references all the overlays under this directory.
 # ==============================================================================
 inputs: (final: prev: {
+
+  kde-theme-vinyl = prev.callPackage ./kde-theme-vinyl.nix {};
+
 })

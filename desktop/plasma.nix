@@ -70,8 +70,9 @@ in {
     })
 
     (mkIf cfg.themes.vinyl {
-      environment.systemPackages =
-        [ (import ../patches/kde-theme-vinyl.nix inputs) ];
+      environment.systemPackages = [
+        pkgs.kde-theme-vinyl
+      ];
     })
 
     (mkIf cfg.kdeconnect.enable {
