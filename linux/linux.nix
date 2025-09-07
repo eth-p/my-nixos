@@ -30,7 +30,7 @@ in {
       kernels = {
         "latest" = pkgs.linuxPackages_latest;
         "cachyos-zen4" =
-          pkgs.linuxPackages_cachyos.cachyOverride { mArch = "ZEN4"; };
+          pkgs.linuxPackages_cachyos-gcc.cachyOverride { mArch = "ZEN4"; };
       };
     in { boot.kernelPackages = kernels."${cfg.kernel}"; })
 
