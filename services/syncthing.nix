@@ -19,7 +19,6 @@ in {
 
     {
       services.syncthing = {
-        extraFlags = [ "--no-default-folder" ];
         enable = true;
         openDefaultPorts = true;
       };
