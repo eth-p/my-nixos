@@ -3,9 +3,10 @@
 #
 # KDE Plasma desktop environment configuration.
 # ==============================================================================
-{ config, lib, pkgs, ... }@inputs:
+{ config, lib, pkgs, my-nixos, ... }@inputs:
 let
   inherit (lib) mkIf mkMerge;
+  inherit (my-nixos.lib) desktops;
   cfg = config.my-nixos.desktop.plasma;
 in {
   options.my-nixos.desktop.plasma = {
@@ -29,7 +30,10 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = let
+      de = desktops.environmentByName config.my-nixos.desktop.environment;
+      wayland = desktops.usesWayland de;
+    in mkIf cfg.enable (mkMerge [
 
     {
       # Install KDE Plasma.
@@ -47,6 +51,13 @@ in {
       ];
 
       programs.partition-manager.enable = true;
+    }
+
+    # Install kwin-effects-forceblur for better backdrop blurring.
+    {
+      environment.systemPackages = if wayland
+        then [ pkgs.kde-kwin-effects-forceblur-wayland ]
+        else [ pkgs.kde-kwin-effects-forceblur-x11 ];
     }
 
     # Configure kwin to use Vulkan as the graphics API.

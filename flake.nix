@@ -16,6 +16,10 @@
       url = "github:eth-p/gamedownsights";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    kwin-effects-forceblur = {
+      url = "github:taj-ny/kwin-effects-forceblur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, lanzaboote, ... }@inputs: {
