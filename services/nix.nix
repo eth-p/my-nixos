@@ -20,6 +20,7 @@ in {
     };
 
     cache.devenv.enable = lib.mkEnableOption "enable devenv binary cache";
+    cache.vicinae.enable = lib.mkEnableOption "enable vicinae binary cache";
   };
 
   config = mkMerge [
@@ -41,11 +42,17 @@ in {
 
     # Enable devenv binary cache.
     (mkIf cfg.cache.devenv.enable {
-      nix.extraOptions = ''
-        extra-substituters = https://devenv.cachix.org
-        extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
-      '';
+      nix.settings = {
+        extra-substituters = [ "https://devenv.cachix.org" ];
+        extra-trusted-public-keys = [ "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=" ];
+      };
     })
 
+    (mkIf cfg.cache.vicinae.enable {
+      nix.settings = {
+        extra-substituters = [ "https://vicinae.cachix.org" ];
+        extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
+      };
+    })
   ];
 }
