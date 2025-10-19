@@ -5,5 +5,6 @@ inputs: {
     ./fwupd.nix
     ./nix.nix
     ./syncthing.nix
+    ./virt-manager.nix
   ];
 }
