@@ -89,7 +89,15 @@ in {
     #
     # https://github.com/FeralInteractive/gamemode
     # https://nixos.wiki/wiki/Gamemode
-    (lib.mkIf cfg.enableGameMode { programs.gamemode.enable = true; })
+    (lib.mkIf cfg.enableGameMode (
+      let
+        normalUsers = (lib.attrsets.filterAttrs (key: val: val.isNormalUser) config.users.users);
+      in
+      {
+        programs.gamemode.enable = true;
+        users.groups.gamemode.members = builtins.attrNames normalUsers;
+      }
+    ))
 
   ]);
 }
