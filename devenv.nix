@@ -1,0 +1,36 @@
+# my-dotfiles | Copyright (C) 2025 eth-p
+# Repository: https://github.com/eth-p/my-dotfiles
+#
+# This provides a consistent environment for running development scripts.
+# ==============================================================================
+{ pkgs, lib, config, inputs, ... }:
+{
+  packages = [
+    pkgs.git
+
+    # Formatters
+    pkgs.treefmt
+    pkgs.shfmt
+    pkgs.nixpkgs-fmt
+  ];
+
+  # https://devenv.sh/tasks/
+  tasks = {
+    "my-nixos:format" = {
+      exec = "treefmt";
+    };
+
+    "my-nixos:docs" = {
+      exec = ''
+        nix run github:Thunderbottom/nix-options-doc?rev=2caa4b5756a8666d65d70122f413e295f56886e7 -- \
+          --path "." \
+          --out OPTIONS.md \
+          --exclude-dir "lib" \
+          --exclude-dir "profiles" \
+          --filter-by-prefix "options.my-dotfiles" \
+          --strip-prefix "options." \
+          --sort
+      '';
+    };
+  };
+}
