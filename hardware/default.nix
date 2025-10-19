@@ -1,5 +1,5 @@
-inputs: { 
-  imports = [ 
+inputs: {
+  imports = [
     ./asus.nix
     ./bluetooth.nix
     ./gamepads.nix

@@ -8,7 +8,8 @@
 let
   inherit (lib) mkIf mkMerge;
   cfg = config.my-nixos.drivers.xone;
-in {
+in
+{
 
   options.my-nixos.drivers.xone = {
     enable = lib.mkEnableOption "install Xbox controller drivers";

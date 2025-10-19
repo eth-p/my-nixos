@@ -29,7 +29,7 @@
       lib = nixpkgs.lib;
       my-nixos = self;
     } // inputs);
-    
+
     # nixosModules provides NixOS modules.
     nixosModules = {
       my-nixos = {

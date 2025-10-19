@@ -7,7 +7,8 @@
 let
   inherit (lib) mkMerge mkIf;
   cfg = config.my-nixos.linux;
-in {
+in
+{
   options.my-nixos.linux = {
     kernel = lib.mkOption {
       type = lib.types.enum [ "latest" "cachyos-zen4" ];
@@ -26,13 +27,16 @@ in {
   config = mkMerge [
 
     # Use a specific kernel package.
-    (let
-      kernels = {
-        "latest" = pkgs.linuxPackages_latest;
-        "cachyos-zen4" =
-          pkgs.linuxPackages_cachyos-gcc.cachyOverride { mArch = "ZEN4"; };
-      };
-    in { boot.kernelPackages = kernels."${cfg.kernel}"; })
+    (
+      let
+        kernels = {
+          "latest" = pkgs.linuxPackages_latest;
+          "cachyos-zen4" =
+            pkgs.linuxPackages_cachyos-gcc.cachyOverride { mArch = "ZEN4"; };
+        };
+      in
+      { boot.kernelPackages = kernels."${cfg.kernel}"; }
+    )
 
     # Install useful tools.
     {

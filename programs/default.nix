@@ -1,5 +1,5 @@
-inputs: { 
-  imports = [ 
+inputs: {
+  imports = [
     ./bottles.nix
     ./gpu-screen-recorder.nix
     ./retrodeck.nix

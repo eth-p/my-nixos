@@ -11,7 +11,8 @@
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.programs.retrodeck;
-in {
+in
+{
   options.my-nixos.programs.retrodeck = {
     enable = lib.mkEnableOption "configure RetroDECK";
     desktopEntries = {
@@ -20,27 +21,29 @@ in {
     };
   };
 
-  config = let
-    arch = pkgs.stdenv.targetPlatform.linuxArch;
-    flatpak = "net.retrodeck.retrodeck";
-  in lib.mkIf cfg.enable (mkMerge [
+  config =
+    let
+      arch = pkgs.stdenv.targetPlatform.linuxArch;
+      flatpak = "net.retrodeck.retrodeck";
+    in
+    lib.mkIf cfg.enable (mkMerge [
 
-    (mkIf cfg.desktopEntries.dolphin {
-      environment.systemPackages = [
-        (pkgs.makeDesktopItem {
-          name = "dolphin-emu";
-          desktopName = "Dolphin Emu";
-          genericName = "GameCube Emulator";
-          exec =
-            "flatpak run --branch=stable --arch=${arch} ${flatpak} --open Dolphin";
-          icon = "dolphin-emu";
-          terminal = false;
-          type = "Application";
-          categories = [ "Game" ];
-        })
-      ];
-    })
+      (mkIf cfg.desktopEntries.dolphin {
+        environment.systemPackages = [
+          (pkgs.makeDesktopItem {
+            name = "dolphin-emu";
+            desktopName = "Dolphin Emu";
+            genericName = "GameCube Emulator";
+            exec =
+              "flatpak run --branch=stable --arch=${arch} ${flatpak} --open Dolphin";
+            icon = "dolphin-emu";
+            terminal = false;
+            type = "Application";
+            categories = [ "Game" ];
+          })
+        ];
+      })
 
-  ]);
+    ]);
 }
 

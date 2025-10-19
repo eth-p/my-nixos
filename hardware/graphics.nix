@@ -8,7 +8,8 @@ let
   inherit (lib) mkIf mkMerge;
   inherit (my-nixos.lib) gpus;
   cfg = config.my-nixos.hardware.graphics;
-in {
+in
+{
   options.my-nixos.hardware.graphics = {
     enable = lib.mkEnableOption "enable graphics stack";
     card = lib.mkOption {
@@ -18,21 +19,22 @@ in {
     };
   };
 
-  config = let primaryGPU = gpus.cardByName cfg.card;
-  in mkIf cfg.enable (mkMerge [
+  config =
+    let primaryGPU = gpus.cardByName cfg.card;
+    in mkIf cfg.enable (mkMerge [
 
-    # Enable graphics support.
-    {
-      hardware.graphics.enable = true;
-    }
+      # Enable graphics support.
+      {
+        hardware.graphics.enable = true;
+      }
 
-    # Enable NVIDIA drivers.
-    (mkIf (gpus.isNvidia primaryGPU) {
-      my-nixos.drivers.nvidia = {
-        enable = true;
-        useOpenKernelDrivers = primaryGPU.drivers.nvidia-open;
-      };
-    })
+      # Enable NVIDIA drivers.
+      (mkIf (gpus.isNvidia primaryGPU) {
+        my-nixos.drivers.nvidia = {
+          enable = true;
+          useOpenKernelDrivers = primaryGPU.drivers.nvidia-open;
+        };
+      })
 
-  ]);
+    ]);
 }

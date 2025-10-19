@@ -8,14 +8,15 @@
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.services.virt-manager;
-in {
+in
+{
   options.my-nixos.services.virt-manager = {
     enable = lib.mkEnableOption "enable virt-manager";
 
     trusted-users = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "users allowed to communicate with libvirtd";
-      default = [];
+      default = [ ];
     };
   };
 

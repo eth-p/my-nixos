@@ -14,5 +14,5 @@ in config.boot.kernelPackages.nvidiaPackages.mkDriver {
   settingsSha256 = "sha256-F2wmUEaRrpR1Vz0TQSwVK4Fv13f3J9NJLtBe4UP2f14=";
   persistencedSha256 = "sha256-QCwxXQfG/Pa7jSTBB0xD3lsIofcerAWWAHKvWjWGQtg=";
   usePersistenced = true;
-  patches = [];
+  patches = [ ];
 }

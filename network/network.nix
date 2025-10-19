@@ -7,7 +7,8 @@
 let
   inherit (lib) mkMerge;
   cfg = config.my-nixos.network;
-in {
+in
+{
   options.my-nixos.network = { };
 
   config = mkMerge [

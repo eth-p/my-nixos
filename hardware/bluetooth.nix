@@ -8,7 +8,8 @@
 let
   inherit (lib) mkIf mkMerge;
   cfg = config.my-nixos.hardware.bluetooth;
-in {
+in
+{
   options.my-nixos.hardware.bluetooth = {
     enable = lib.mkEnableOption "enable Bluetooth stack";
   };

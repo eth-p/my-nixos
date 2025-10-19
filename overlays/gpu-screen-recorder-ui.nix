@@ -4,30 +4,30 @@
 #
 # Homepage: https://git.dec05eba.com/gpu-screen-recorder/about/
 # ==============================================================================
-{
-  lib,
-  stdenv,
-  fetchgit,
-  pkg-config,
-  meson,
-  ninja,
-  makeWrapper,
-  gpu-screen-recorder,
-  gpu-screen-recorder-notification,
-  libX11,
-  libXrender,
-  libXrandr,
-  libXcomposite,
-  libXi,
-  libXcursor,
-  libglvnd,
-  libpulseaudio,
-  libdrm,
-  wayland,
-  wayland-scanner,
-  wrapperDir ? "/run/wrappers/bin",
-  gitUpdater,
-  bash,
+{ lib
+, stdenv
+, fetchgit
+, pkg-config
+, meson
+, ninja
+, makeWrapper
+, gpu-screen-recorder
+, gpu-screen-recorder-notification
+, libX11
+, libXrender
+, libXrandr
+, libXcomposite
+, libXi
+, libXcursor
+, libglvnd
+, libpulseaudio
+, libdrm
+, wayland
+, wayland-scanner
+, wrapperDir ? "/run/wrappers/bin"
+, gitUpdater
+, bash
+,
 }:
 
 stdenv.mkDerivation rec {

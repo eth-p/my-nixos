@@ -10,7 +10,8 @@
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.programs.bottles;
-in {
+in
+{
   options.my-nixos.programs.bottles = {
     enable = lib.mkEnableOption "install Bottles";
   };

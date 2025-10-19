@@ -1,5 +1,5 @@
-inputs: { 
-  imports = [ 
+inputs: {
+  imports = [
     ./docker.nix
     ./flatpak.nix
     ./fwupd.nix

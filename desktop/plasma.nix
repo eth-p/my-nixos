@@ -8,7 +8,8 @@ let
   inherit (lib) mkIf mkMerge;
   inherit (my-nixos.lib) desktops;
   cfg = config.my-nixos.desktop.plasma;
-in {
+in
+{
   options.my-nixos.desktop.plasma = {
     enable = lib.mkEnableOption "install KDE Plasma desktop environment";
 
@@ -30,65 +31,68 @@ in {
     };
   };
 
-  config = let
+  config =
+    let
       de = desktops.environmentByName config.my-nixos.desktop.environment;
       wayland = desktops.usesWayland de;
-    in mkIf cfg.enable (mkMerge [
+    in
+    mkIf cfg.enable (mkMerge [
 
-    {
-      # Install KDE Plasma.
-      services.displayManager.defaultSession = "plasma";
-      services.desktopManager.plasma6.enable = true;
+      {
+        # Install KDE Plasma.
+        services.displayManager.defaultSession = "plasma";
+        services.desktopManager.plasma6.enable = true;
 
-      # Install extra packages.
-      environment.systemPackages = with pkgs; [
-        kdePackages.discover
-        kdePackages.filelight
-        kdePackages.sddm-kcm
-        pinentry-qt
+        # Install extra packages.
+        environment.systemPackages = with pkgs; [
+          kdePackages.discover
+          kdePackages.filelight
+          kdePackages.sddm-kcm
+          pinentry-qt
 
-        vulkan-hdr-layer-kwin6
-      ];
+          vulkan-hdr-layer-kwin6
+        ];
 
-      programs.partition-manager.enable = true;
-    }
+        programs.partition-manager.enable = true;
+      }
 
-    # Install kwin-effects-forceblur for better backdrop blurring.
-    {
-      environment.systemPackages = if wayland
-        then [ pkgs.kde-kwin-effects-forceblur-wayland ]
-        else [ pkgs.kde-kwin-effects-forceblur-x11 ];
-    }
+      # Install kwin-effects-forceblur for better backdrop blurring.
+      {
+        environment.systemPackages =
+          if wayland
+          then [ pkgs.kde-kwin-effects-forceblur-wayland ]
+          else [ pkgs.kde-kwin-effects-forceblur-x11 ];
+      }
 
-    # Configure kwin to use Vulkan as the graphics API.
-    # This may fix an issue with random white lines on Nvidia cards.
-    (mkIf cfg.useVulkan {
-      environment.etc."xdg/kwinrc".text = ''
-        [Compositing]
-        GraphicsApi=Vulkan
-      '';
-    })
+      # Configure kwin to use Vulkan as the graphics API.
+      # This may fix an issue with random white lines on Nvidia cards.
+      (mkIf cfg.useVulkan {
+        environment.etc."xdg/kwinrc".text = ''
+          [Compositing]
+          GraphicsApi=Vulkan
+        '';
+      })
 
-    (mkIf cfg.krunner.vscode.enable {
-      environment.systemPackages = with pkgs; [ vscode-runner ];
-    })
+      (mkIf cfg.krunner.vscode.enable {
+        environment.systemPackages = with pkgs; [ vscode-runner ];
+      })
 
-    (mkIf cfg.kvantum.enable {
-      qt = {
-        enable = true;
-        platformTheme = "qt5ct";
-      };
-    })
+      (mkIf cfg.kvantum.enable {
+        qt = {
+          enable = true;
+          platformTheme = "qt5ct";
+        };
+      })
 
-    (mkIf cfg.themes.vinyl {
-      environment.systemPackages = [
-        pkgs.kde-theme-vinyl
-      ];
-    })
+      (mkIf cfg.themes.vinyl {
+        environment.systemPackages = [
+          pkgs.kde-theme-vinyl
+        ];
+      })
 
-    (mkIf cfg.kdeconnect.enable {
-      programs.kdeconnect.enable = true;
-    })
+      (mkIf cfg.kdeconnect.enable {
+        programs.kdeconnect.enable = true;
+      })
 
-  ]);
+    ]);
 }

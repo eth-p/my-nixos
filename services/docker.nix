@@ -9,7 +9,8 @@
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.services.docker;
-in {
+in
+{
   options.my-nixos.services.docker = {
     enable = lib.mkEnableOption "install Docker";
     rootless = lib.mkEnableOption "use Docker rootless" // { default = true; };
@@ -17,7 +18,7 @@ in {
     trusted-users = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "users allowed to communicate with the Docker daemon";
-      default = [];
+      default = [ ];
     };
   };
 

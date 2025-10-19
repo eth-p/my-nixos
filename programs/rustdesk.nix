@@ -8,7 +8,8 @@
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.programs.rustdesk;
-in {
+in
+{
   options.my-nixos.programs.rustdesk = {
     enable = lib.mkEnableOption "install RustDesk";
     unattended = lib.mkEnableOption "install RustDesk for unattended usage";

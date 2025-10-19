@@ -8,7 +8,8 @@ let
   inherit (lib) mkIf mkMerge mkDefault;
   inherit (my-nixos.lib) desktops;
   cfg = config.my-nixos.desktop;
-in {
+in
+{
   imports = [ ./plasma.nix ];
 
   options.my-nixos.desktop = {
@@ -22,40 +23,42 @@ in {
     };
   };
 
-  config = let
-    de = desktops.environmentByName cfg.environment;
-    wayland = desktops.usesWayland de;
-  in mkIf cfg.enable (mkMerge [
+  config =
+    let
+      de = desktops.environmentByName cfg.environment;
+      wayland = desktops.usesWayland de;
+    in
+    mkIf cfg.enable (mkMerge [
 
-    {
-      # Use SDDM as the display manager.
-      services.displayManager.sddm.enable = true;
-      
-      # Enable X11.
-      services.xserver.enable = true;
-    }
+      {
+        # Use SDDM as the display manager.
+        services.displayManager.sddm.enable = true;
 
-    # Enable Wayland and install wayland-related packages.
-    (mkIf wayland {
-      services.displayManager.sddm.wayland.enable = true;
-      environment.systemPackages = with pkgs; [
-        wayland-utils
-        wl-clipboard
-      ];
-    })
+        # Enable X11.
+        services.xserver.enable = true;
+      }
 
-    # Install X11-related packages.
-    (mkIf (!wayland) {
-      environment.systemPackages = with pkgs; [ 
-        xclip
-      ]; 
-    })
+      # Enable Wayland and install wayland-related packages.
+      (mkIf wayland {
+        services.displayManager.sddm.wayland.enable = true;
+        environment.systemPackages = with pkgs; [
+          wayland-utils
+          wl-clipboard
+        ];
+      })
 
-    # Use KDE Plasma as the default desktop environment.
-    (mkIf (desktops.isPlasma de) {
-      my-nixos.desktop.plasma.enable = true;
-      services.displayManager.defaultSession = "plasma";
-    })
+      # Install X11-related packages.
+      (mkIf (!wayland) {
+        environment.systemPackages = with pkgs; [
+          xclip
+        ];
+      })
 
-  ]);
+      # Use KDE Plasma as the default desktop environment.
+      (mkIf (desktops.isPlasma de) {
+        my-nixos.desktop.plasma.enable = true;
+        services.displayManager.defaultSession = "plasma";
+      })
+
+    ]);
 }

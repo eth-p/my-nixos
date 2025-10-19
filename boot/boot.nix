@@ -9,12 +9,13 @@
 let
   inherit (lib) mkIf mkMerge;
   cfg = config.my-nixos.boot;
-in {
+in
+{
   options.my-nixos.boot = {
     secure-boot.enable = lib.mkEnableOption "Secure Boot using lanzaboote";
     tpm-unlock.enable =
       lib.mkEnableOption "use TPM to unlock LUKS-encrypted volumes";
-    
+
     verbose = lib.mkOption {
       type = lib.types.bool;
       default = true;

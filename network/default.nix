@@ -1,5 +1,5 @@
-inputs: { 
-  imports = [ 
+inputs: {
+  imports = [
     ./network.nix
   ];
 }

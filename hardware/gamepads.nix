@@ -7,7 +7,8 @@
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.hardware.gamepads;
-in {
+in
+{
   options.my-nixos.hardware.gamepads = {
     enable = lib.mkEnableOption "enable gamepad support";
   };

@@ -7,7 +7,8 @@
 let
   inherit (lib) mkIf mkMerge;
   cfg = config.my-nixos.services.nix;
-in {
+in
+{
   options.my-nixos.services.nix = {
     flakes = lib.mkOption {
       type = lib.types.bool;

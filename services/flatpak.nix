@@ -7,7 +7,8 @@
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.services.flatpak;
-in {
+in
+{
   options.my-nixos.services.flatpak = {
     enable = lib.mkEnableOption "enable Flatpak";
   };

@@ -7,12 +7,13 @@
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.hardware.asus;
-in {
+in
+{
   options.my-nixos.hardware.asus = {
     motherboard-x670e-fixes = lib.mkEnableOption "fixes for the X670E motherboard";
   };
 
-  config = mkMerge([
+  config = mkMerge ([
 
     # Intel network adapter drops off bus.
     # https://www.reddit.com/r/buildapc/comments/xypn1m/comment/ixxz8mu

@@ -7,7 +7,8 @@
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.hardware.logitech;
-in {
+in
+{
   options.my-nixos.hardware.logitech = {
     enable = lib.mkEnableOption "enable Logitech hardware support";
 

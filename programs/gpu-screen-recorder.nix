@@ -5,11 +5,10 @@
 #
 # Wiki:     https://wiki.nixos.org/wiki/Gpu-screen-recorder
 # ==============================================================================
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 let
   inherit (lib) mkMerge mkIf;

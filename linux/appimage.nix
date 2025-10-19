@@ -7,7 +7,8 @@
 let
   inherit (lib) mkMerge mkIf;
   cfg = config.my-nixos.linux.appimage;
-in {
+in
+{
   options.my-nixos.linux.appimage = {
     enable = lib.mkEnableOption "add AppImage support" // { default = true; };
   };

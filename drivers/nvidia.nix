@@ -7,7 +7,8 @@
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.drivers.nvidia;
-in {
+in
+{
 
   options.my-nixos.drivers.nvidia = {
     enable = lib.mkEnableOption "install NVIDIA drivers";
