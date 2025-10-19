@@ -20,6 +20,12 @@ in
       default = true;
     };
 
+    trusted-users = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      description = "trusted users";
+      default = [ ];
+    };
+
     cache.devenv.enable = lib.mkEnableOption "enable devenv binary cache";
     cache.vicinae.enable = lib.mkEnableOption "enable vicinae binary cache";
   };
@@ -55,5 +61,10 @@ in
         extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
       };
     })
+
+    # Set trusted users.
+    {
+      nix.settings.trusted-users = cfg.trusted-users;
+    }
   ];
 }
