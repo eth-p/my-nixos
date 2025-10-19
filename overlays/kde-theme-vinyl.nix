@@ -10,9 +10,13 @@ pkgs.stdenv.mkDerivation {
   version = "main";
   src = pkgs.fetchgit {
     url = "https://github.com/ekaaty/vinyl-theme.git";
-    rev = "v6.4.4";
-    hash = "sha256-2CoO9xJwRvuoUZFr2qgtllbf9PsTV1xZxHMxh9CMtpo=";
+    rev = "v6.4.5";
+    hash = "sha256-WeCIz5udvHigajHTgIpWachHroNpfCx7sR13RRcCeW4=";
   };
+
+  patches = [
+    ./kde-theme-vinyl-missing-symlink.patch
+  ];
 
   outputs = [ "dev" "out" ];
 
@@ -48,7 +52,9 @@ pkgs.stdenv.mkDerivation {
     qt6.qtsvg
     gettext
     extra-cmake-modules
-    inkscape
+    python313
+    python313Packages.cairosvg
+    python313Packages.lxml
     unzip
 
     qt6.wrapQtAppsHook
