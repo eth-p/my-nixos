@@ -22,4 +22,7 @@
 
   # isNvidia :: attrset -> bool
   isNvidia = gpu: if gpu.drivers ? "nvidia" then gpu.drivers.nvidia else false;
+
+  # isAMD :: attrset -> bool
+  isAMD = gpu: false; # stub until I have an AMD card
 }
