@@ -1,8 +1,11 @@
-From f1027b7b1fed49dbc465fae9837f6bfcf4fd2fc2 Mon Sep 17 00:00:00 2001
-From: "Ethan P." <eth-p+git@hidden.email>
-Date: Sat, 18 Oct 2025 17:26:13 -0700
-Subject: [PATCH] fix: Remove broken places/scalable icon link
+Subject: [PATCH] fix: Remove broken symlinks
 
+The `start-here-kde.svg` icon under `icons/src/places/scalable`
+does not exist, and it's used as the target for the
+`start-here-kde-plasma.svg` symlink.
+
+Remove it from `links.txt` so the built package does not contain
+any symlinks.
 ---
  icons/src/places/scalable/links.txt | 1 -
  1 file changed, 1 deletion(-)

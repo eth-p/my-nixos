@@ -86,7 +86,7 @@ in
 
       (mkIf cfg.themes.vinyl {
         environment.systemPackages = [
-          pkgs.kde-theme-vinyl
+          pkgs.vinyl-theme
         ];
       })
 

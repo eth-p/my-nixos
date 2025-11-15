@@ -22,28 +22,35 @@
     };
   };
 
-  outputs = { self, nixpkgs, lanzaboote, ... }@inputs: {
+  outputs =
+    { self, nixpkgs, ... }@inputs: rec
+    {
 
-    # lib provides reusable library functions.
-    lib = (import ./lib/nix) ({
-      lib = nixpkgs.lib;
-      my-nixos = self;
-    } // inputs);
+      # lib provides reusable library functions.
+      lib = (import ./lib/nix) (
+        {
+          lib = nixpkgs.lib;
+          my-nixos = self;
+        }
+        // inputs
+      );
 
-    # nixosModules provides NixOS modules.
-    nixosModules = {
-      my-nixos = {
-        imports = [
-          ./desktop
-          ./drivers
-          ./hardware
-          ./programs
-          ./services
-          ./boot
-          ./linux
-          ./network
-        ];
+      # overlays provides nixpkgs overlays.
+      overlays = {
+        default = prev: final: (overlays.externals prev final) // (overlays.packages prev final);
+
+        packages = (import ./packages/overlay.nix);
+        externals = (prev: final: {
+          kde-kwin-effects-forceblur-wayland = inputs.kwin-effects-forceblur.packages.${prev.system}.default;
+          kde-kwin-effects-forceblur-x11 = inputs.kwin-effects-forceblur.packages.${prev.system}.x11;
+        });
+      };
+
+      # nixosModules provides NixOS modules.
+      nixosModules = {
+        my-nixos = {
+          imports = (import ./modules);
+        };
       };
     };
-  };
 }

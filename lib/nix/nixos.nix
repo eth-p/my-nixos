@@ -23,7 +23,7 @@
         }
 
         (inputs: {
-          nixpkgs.overlays = [ ((import ../../overlays) inputs) ];
+          nixpkgs.overlays = [ my-nixos.overlays.default ];
         })
       ] ++ modules;
 

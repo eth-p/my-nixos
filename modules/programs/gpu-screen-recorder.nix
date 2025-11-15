@@ -55,8 +55,8 @@ in
         };
       };
 
-      environment.systemPackages = with pkgs; [
-        gpu-screen-recorder
+      environment.systemPackages = [
+        cfg.package
       ];
     }
 
@@ -71,8 +71,8 @@ in
       };
 
       environment.systemPackages = with pkgs; [
-        gpu-screen-recorder-ui
-        gpu-screen-recorder-notification
+        cfg.ui.package
+        pkgs.gpu-screen-recorder-notification
       ];
     })
 

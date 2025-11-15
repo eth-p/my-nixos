@@ -30,7 +30,7 @@
 , libXfixes
 , wrapperDir ? "/run/wrappers/bin"
 , gitUpdater
-,
+, callPackage
 }:
 
 stdenv.mkDerivation rec {
