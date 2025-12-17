@@ -23,10 +23,8 @@
 
         # Formatters
         pkgs.treefmt
-        pkgs.nodePackages.prettier
         pkgs.shfmt
         pkgs.nixfmt-rfc-style
-        pkgs.stylua
       ];
 
       # https://devenv.sh/tasks/
