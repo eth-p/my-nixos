@@ -6,7 +6,12 @@
 # Wiki:     https://wiki.nixos.org/wiki/Syncthing
 # Homepage: https://syncthing.net/
 # ==============================================================================
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.services.syncthing;

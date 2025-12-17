@@ -3,7 +3,12 @@
 #
 # Nix package manager configuration.
 # ==============================================================================
-{ config, lib, pkgs, ... }@inputs:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}@inputs:
 let
   inherit (lib) mkIf mkMerge;
   cfg = config.my-nixos.services.nix;
@@ -34,12 +39,14 @@ in
 
     # Enable Nix flakes and the `nix` command.
     (mkIf cfg.flakes {
-      nix.settings.experimental-features = [ "nix-command" "flakes" ];
+      nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
 
-      environment.systemPackages = with pkgs;
-        [
-          git # Used to pull flakes
-        ];
+      environment.systemPackages = with pkgs; [
+        git # Used to pull flakes
+      ];
     })
 
     # Show potential packages for unknown commands.

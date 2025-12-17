@@ -5,7 +5,13 @@
 #
 # Wiki: https://wiki.nixos.org/wiki/OBS_Studio
 # ==============================================================================
-{ config, lib, pkgs, my-nixos, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  my-nixos,
+  ...
+}:
 let
   inherit (lib) mkIf mkMerge mkDefault;
   inherit (lib.strings) escapeShellArg;
@@ -19,13 +25,21 @@ in
 
     accel.nvapi = lib.mkOption {
       description = "enable Hardware acceleration using Nvidia cards";
-      type = lib.types.enum [ true false "auto" ];
+      type = lib.types.enum [
+        true
+        false
+        "auto"
+      ];
       default = "auto";
     };
 
     accel.vaapi = lib.mkOption {
       description = "enable Hardware acceleration using AMD cards";
-      type = lib.types.enum [ true false "auto" ];
+      type = lib.types.enum [
+        true
+        false
+        "auto"
+      ];
       default = "auto";
     };
 
@@ -54,11 +68,10 @@ in
         buildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/obs \
-            ${lib.attrsets.foldlAttrs
-              (acc: var: val: "${acc} --set ${escapeShellArg var} ${escapeShellArg val}")
-              ""
-              cfg.environmentVariables
-            }
+            ${lib.attrsets.foldlAttrs (
+              acc: var: val:
+              "${acc} --set ${escapeShellArg var} ${escapeShellArg val}"
+            ) "" cfg.environmentVariables}
         '';
       };
     in

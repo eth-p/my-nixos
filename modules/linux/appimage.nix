@@ -3,24 +3,33 @@
 #
 # AppImage support.
 # ==============================================================================
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkMerge mkIf;
   cfg = config.my-nixos.linux.appimage;
 in
 {
   options.my-nixos.linux.appimage = {
-    enable = lib.mkEnableOption "add AppImage support" // { default = true; };
+    enable = lib.mkEnableOption "add AppImage support" // {
+      default = true;
+    };
   };
 
-  config = (mkIf cfg.enable (mkMerge [
+  config = (
+    mkIf cfg.enable (mkMerge [
 
-    {
-      programs.appimage = {
-        enable = true;
-        binfmt = true;
-      };
-    }
+      {
+        programs.appimage = {
+          enable = true;
+          binfmt = true;
+        };
+      }
 
-  ]));
+    ])
+  );
 }

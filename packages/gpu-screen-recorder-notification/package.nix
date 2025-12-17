@@ -4,21 +4,21 @@
 #
 # Homepage: https://git.dec05eba.com/gpu-screen-recorder/about/
 # ==============================================================================
-{ lib
-, stdenv
-, fetchgit
-, pkg-config
-, meson
-, ninja
-, libX11
-, libXrender
-, libXrandr
-, libXext
-, libglvnd
-, wayland
-, wayland-scanner
-, gitUpdater
-,
+{
+  lib,
+  stdenv,
+  fetchgit,
+  pkg-config,
+  meson,
+  ninja,
+  libX11,
+  libXrender,
+  libXrandr,
+  libXext,
+  libglvnd,
+  wayland,
+  wayland-scanner,
+  gitUpdater,
 }:
 
 stdenv.mkDerivation rec {

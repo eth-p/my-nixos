@@ -25,8 +25,8 @@
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs: rec
-    {
+    { self, nixpkgs, ... }@inputs:
+    rec {
 
       # lib provides reusable library functions.
       lib = (import ./lib/nix) (
@@ -42,10 +42,12 @@
         default = prev: final: (overlays.externals prev final) // (overlays.packages prev final);
 
         packages = (import ./packages/overlay.nix);
-        externals = (prev: final: {
-          kde-kwin-effects-forceblur-wayland = inputs.kwin-effects-forceblur.packages.${prev.system}.default;
-          kde-kwin-effects-forceblur-x11 = inputs.kwin-effects-forceblur.packages.${prev.system}.x11;
-        });
+        externals = (
+          prev: final: {
+            kde-kwin-effects-forceblur-wayland = inputs.kwin-effects-forceblur.packages.${prev.system}.default;
+            kde-kwin-effects-forceblur-x11 = inputs.kwin-effects-forceblur.packages.${prev.system}.x11;
+          }
+        );
       };
 
       # nixosModules provides NixOS modules.

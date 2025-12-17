@@ -3,7 +3,12 @@
 #
 # Drivers for NVIDIA GPUs.
 # ==============================================================================
-{ config, lib, pkgs, ... }@inputs:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}@inputs:
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.drivers.nvidia;
@@ -47,8 +52,12 @@ in
 
     # Allow Plymouth to take over ASAP.
     (mkIf (!config.my-nixos.boot.verbose) {
-      boot.initrd.availableKernelModules =
-        [ "nvidia" "nvidia_drm" "nvidia_uvm" "nvidia_modeset" ];
+      boot.initrd.availableKernelModules = [
+        "nvidia"
+        "nvidia_drm"
+        "nvidia_uvm"
+        "nvidia_modeset"
+      ];
     })
 
   ]);

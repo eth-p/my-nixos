@@ -6,7 +6,13 @@
 # Wiki:     https://wiki.nixos.org/wiki/Bottles
 # Homepage: https://usebottles.com/
 # ==============================================================================
-{ config, lib, pkgs, my-nixos, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  my-nixos,
+  ...
+}:
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.programs.bottles;
@@ -19,8 +25,7 @@ in
   config = lib.mkIf cfg.enable (mkMerge [
 
     {
-      environment.systemPackages = with pkgs;
-        [ (bottles.override { removeWarningPopup = true; }) ];
+      environment.systemPackages = with pkgs; [ (bottles.override { removeWarningPopup = true; }) ];
     }
 
   ]);

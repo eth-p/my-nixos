@@ -3,7 +3,12 @@
 #
 # Flatpak configuration.
 # ==============================================================================
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.services.flatpak;

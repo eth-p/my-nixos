@@ -4,7 +4,12 @@
 # Bluetooth hardware configuration.
 # https://nixos.wiki/wiki/Bluetooth
 # ==============================================================================
-{ config, lib, my-nixos, ... }:
+{
+  config,
+  lib,
+  my-nixos,
+  ...
+}:
 let
   inherit (lib) mkIf mkMerge;
   cfg = config.my-nixos.hardware.bluetooth;

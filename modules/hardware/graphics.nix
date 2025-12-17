@@ -3,7 +3,12 @@
 #
 # Graphics hardware configuration.
 # ==============================================================================
-{ config, lib, my-nixos, ... }:
+{
+  config,
+  lib,
+  my-nixos,
+  ...
+}:
 let
   inherit (lib) mkIf mkMerge;
   inherit (my-nixos.lib) gpus;
@@ -20,8 +25,10 @@ in
   };
 
   config =
-    let primaryGPU = gpus.cardByName cfg.card;
-    in mkIf cfg.enable (mkMerge [
+    let
+      primaryGPU = gpus.cardByName cfg.card;
+    in
+    mkIf cfg.enable (mkMerge [
 
       # Enable graphics support.
       {

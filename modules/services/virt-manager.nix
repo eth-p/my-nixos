@@ -4,7 +4,12 @@
 # virt-manager configuration.
 # Wiki: https://nixos.wiki/wiki/Virt-manager
 # ==============================================================================
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.services.virt-manager;

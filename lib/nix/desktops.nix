@@ -3,7 +3,8 @@
 #
 # A Nix library listing desktop environments.
 # ==============================================================================
-{ ... }: rec {
+{ ... }:
+rec {
   environments = {
 
     # KDE Plasma 6

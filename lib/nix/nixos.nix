@@ -3,11 +3,17 @@
 #
 # Helpers for creating a NixOS system flake using my-nixos.
 # ==============================================================================
-{ my-nixos, nixpkgs, ... }@inputs: {
+{ my-nixos, nixpkgs, ... }@inputs:
+{
 
   # mkNixSystem provides a way to create a NixOS system
   # without having to set up all the manual boilerplate.
-  mkNixSystem = { hostname, stateVersion, modules }:
+  mkNixSystem =
+    {
+      hostname,
+      stateVersion,
+      modules,
+    }:
     nixpkgs.lib.nixosSystem {
       modules = [
         inputs.lanzaboote.nixosModules.lanzaboote
@@ -24,9 +30,14 @@
             my-nixos.inputs.nix-cachyos-kernel.overlay
           ];
         })
-      ] ++ modules;
+      ]
+      ++ modules;
 
-      specialArgs = { my-nixos = my-nixos // { inherit inputs; }; };
+      specialArgs = {
+        my-nixos = my-nixos // {
+          inherit inputs;
+        };
+      };
     };
 
 }

@@ -3,7 +3,13 @@
 #
 # Desktop environment configuration.
 # ==============================================================================
-{ config, lib, pkgs, my-nixos, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  my-nixos,
+  ...
+}:
 let
   inherit (lib) mkIf mkMerge mkDefault;
   inherit (my-nixos.lib) desktops;
@@ -16,8 +22,7 @@ in
     enable = lib.mkEnableOption "use a graphical desktop environment";
 
     environment = lib.mkOption {
-      type = lib.types.nullOr
-        (lib.types.enum (builtins.attrNames desktops.environments));
+      type = lib.types.nullOr (lib.types.enum (builtins.attrNames desktops.environments));
       default = null;
       description = "the desktop environment to use";
     };

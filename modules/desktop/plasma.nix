@@ -3,7 +3,13 @@
 #
 # KDE Plasma desktop environment configuration.
 # ==============================================================================
-{ config, lib, pkgs, my-nixos, ... }@inputs:
+{
+  config,
+  lib,
+  pkgs,
+  my-nixos,
+  ...
+}@inputs:
 let
   inherit (lib) mkIf mkMerge;
   inherit (my-nixos.lib) desktops;
@@ -17,14 +23,17 @@ in
       default = true;
     };
 
-    kvantum = { enable = lib.mkEnableOption "install kvantum theme engine"; };
-
-    krunner = {
-      vscode.enable =
-        lib.mkEnableOption "install the VSCode plugin for krunner";
+    kvantum = {
+      enable = lib.mkEnableOption "install kvantum theme engine";
     };
 
-    themes = { vinyl = lib.mkEnableOption "install the Vinyl theme"; };
+    krunner = {
+      vscode.enable = lib.mkEnableOption "install the VSCode plugin for krunner";
+    };
+
+    themes = {
+      vinyl = lib.mkEnableOption "install the Vinyl theme";
+    };
 
     kdeconnect = {
       enable = lib.mkEnableOption "install KDE Connect";
@@ -59,9 +68,10 @@ in
       # Install kwin-effects-forceblur for better backdrop blurring.
       {
         environment.systemPackages =
-          if wayland
-          then [ pkgs.kde-kwin-effects-forceblur-wayland ]
-          else [ pkgs.kde-kwin-effects-forceblur-x11 ];
+          if wayland then
+            [ pkgs.kde-kwin-effects-forceblur-wayland ]
+          else
+            [ pkgs.kde-kwin-effects-forceblur-x11 ];
       }
 
       # Configure kwin to use Vulkan as the graphics API.

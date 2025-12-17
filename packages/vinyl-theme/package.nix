@@ -1,16 +1,16 @@
-{ lib
-, gitUpdater
-, fetchFromGitHub
-, stdenv
-, cmake
-, extra-cmake-modules
-, gettext
-, kdePackages
-, python3
-, python3Packages
-, qt6Packages
-, xorg
-,
+{
+  lib,
+  gitUpdater,
+  fetchFromGitHub,
+  stdenv,
+  cmake,
+  extra-cmake-modules,
+  gettext,
+  kdePackages,
+  python3,
+  python3Packages,
+  qt6Packages,
+  xorg,
 }:
 stdenv.mkDerivation rec {
   pname = "vinyl-theme";

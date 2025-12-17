@@ -3,7 +3,12 @@
 #
 # Linux configuration.
 # ==============================================================================
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkMerge mkIf;
   cfg = config.my-nixos.linux;
@@ -11,7 +16,11 @@ in
 {
   options.my-nixos.linux = {
     kernel = lib.mkOption {
-      type = lib.types.enum [ "latest" "cachyos" "cachyos-zen4" ];
+      type = lib.types.enum [
+        "latest"
+        "cachyos"
+        "cachyos-zen4"
+      ];
       default = "latest";
       description = "the Linux kernel packages";
     };
@@ -32,12 +41,19 @@ in
         kernels = {
           "latest" = pkgs.linuxPackages_latest;
           "cachyos" = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
-          "cachyos-zen4" = pkgs.linuxKernel.packagesFor (pkgs.cachyosKernels.linux-cachyos-latest.overrideAttrs (old: {
-            NIX_CFLAGS_COMPILE = [ (old.NIX_CFLAGS_COMPILE or "") "-march=znver4" ];
-          }));
+          "cachyos-zen4" = pkgs.linuxKernel.packagesFor (
+            pkgs.cachyosKernels.linux-cachyos-latest.overrideAttrs (old: {
+              NIX_CFLAGS_COMPILE = [
+                (old.NIX_CFLAGS_COMPILE or "")
+                "-march=znver4"
+              ];
+            })
+          );
         };
       in
-      { boot.kernelPackages = kernels."${cfg.kernel}"; }
+      {
+        boot.kernelPackages = kernels."${cfg.kernel}";
+      }
     )
 
     # Install useful tools.
@@ -61,9 +77,7 @@ in
         serviceConfig = {
           Type = "oneshot";
           ExecStart = ''
-            /bin/sh -c 'for tty in ${
-              pkgs.lib.escapeShellArgs cfg.quiet-consoles
-            }; do \
+            /bin/sh -c 'for tty in ${pkgs.lib.escapeShellArgs cfg.quiet-consoles}; do \
               if [ -e "/dev/$tty" ]; then \
                 /run/current-system/sw/bin/setterm -msg off -term linux <"/dev/$tty" >"/dev/$tty"; \
               fi \

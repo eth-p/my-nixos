@@ -3,7 +3,13 @@
 #
 # Steam configuration.
 # ==============================================================================
-{ config, lib, pkgs, my-nixos, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  my-nixos,
+  ...
+}:
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.programs.steam;
@@ -11,8 +17,7 @@ in
 {
   options.my-nixos.programs.steam = {
     enable = lib.mkEnableOption "install Steam";
-    enableProtonManager = lib.mkEnableOption "install a Proton management tool"
-      // {
+    enableProtonManager = lib.mkEnableOption "install a Proton management tool" // {
       default = true;
     };
     enableGameMode = lib.mkEnableOption "install GameMode" // {
@@ -39,13 +44,15 @@ in
             packages = pkgs': with pkgs'; [ gamemode ];
           }
         ];
-        extraPkgs = pkgs':
-          builtins.foldl' (acc: elem: acc ++ elem) [ ]
-            (builtins.map (ep: ep.packages pkgs')
-              (builtins.filter (ep: ep.enable) extraPkgsOptions));
+        extraPkgs =
+          pkgs':
+          builtins.foldl' (acc: elem: acc ++ elem) [ ] (
+            builtins.map (ep: ep.packages pkgs') (builtins.filter (ep: ep.enable) extraPkgsOptions)
+          );
       in
       {
-        nixpkgs.config.allowUnfreePredicate = pkg:
+        nixpkgs.config.allowUnfreePredicate =
+          pkg:
           builtins.elem (lib.getName pkg) [
             "steam"
             "steam-original"

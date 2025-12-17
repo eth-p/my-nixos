@@ -5,7 +5,12 @@
 #
 # Contains options for enabling Secure Boot and LUKS TPM 2.0 unlock.
 # ==============================================================================
-{ config, lib, pkgs, ... }@inputs:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}@inputs:
 let
   inherit (lib) mkIf mkMerge;
   cfg = config.my-nixos.boot;
@@ -13,8 +18,7 @@ in
 {
   options.my-nixos.boot = {
     secure-boot.enable = lib.mkEnableOption "Secure Boot using lanzaboote";
-    tpm-unlock.enable =
-      lib.mkEnableOption "use TPM to unlock LUKS-encrypted volumes";
+    tpm-unlock.enable = lib.mkEnableOption "use TPM to unlock LUKS-encrypted volumes";
 
     verbose = lib.mkOption {
       type = lib.types.bool;

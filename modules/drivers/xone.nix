@@ -4,7 +4,12 @@
 # Drivers for Xbox controllers.
 # https://github.com/medusalix/xone
 # ==============================================================================
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkIf mkMerge;
   cfg = config.my-nixos.drivers.xone;
@@ -14,8 +19,7 @@ in
   options.my-nixos.drivers.xone = {
     enable = lib.mkEnableOption "install Xbox controller drivers";
 
-    resetAdaptersAfterBoot =
-      lib.mkEnableOption "reset USB Xbox controller adapters after boot";
+    resetAdaptersAfterBoot = lib.mkEnableOption "reset USB Xbox controller adapters after boot";
   };
 
   config = mkIf cfg.enable (mkMerge [

@@ -4,7 +4,12 @@
 # RustDesk install and configuration.
 # https://rustdesk.com/
 # ==============================================================================
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.programs.rustdesk;
@@ -23,7 +28,10 @@ in
       # https://www.reddit.com/r/rustdesk/comments/1jhn2pa/comment/mjbjrcv/
       systemd.services."rustdesk" = {
         enable = true;
-        path = with pkgs; [ rustdesk procps ];
+        path = with pkgs; [
+          rustdesk
+          procps
+        ];
         description = "RustDesk";
         requires = [ "network.target" ];
         after = [ "systemd-user-sessions.service" ];
@@ -45,4 +53,3 @@ in
 
   ]);
 }
-

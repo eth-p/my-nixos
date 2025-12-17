@@ -6,7 +6,8 @@
 # ==============================================================================
 { config, pkgs, ... }:
 let
-in config.boot.kernelPackages.nvidiaPackages.mkDriver {
+in
+config.boot.kernelPackages.nvidiaPackages.mkDriver {
   version = "580.119.02";
   sha256_64bit = "sha256-gCD139PuiK7no4mQ0MPSr+VHUemhcLqerdfqZwE47Nc=";
   sha256_aarch64 = "sha256-eYcYVD5XaNbp4kPue8fa/zUgrt2vHdjn6DQMYDl0uQs=";

@@ -4,10 +4,15 @@
 # RetroDECK configuration.
 #
 # It still needs to be installed through Flatpak manually.
-# 
+#
 # Homepage: https://retrodeck.net/
 # ==============================================================================
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkIf mkMerge mkDefault;
   cfg = config.my-nixos.programs.retrodeck;
@@ -16,8 +21,7 @@ in
   options.my-nixos.programs.retrodeck = {
     enable = lib.mkEnableOption "configure RetroDECK";
     desktopEntries = {
-      dolphin =
-        lib.mkEnableOption "create an application menu entry for Dolphin";
+      dolphin = lib.mkEnableOption "create an application menu entry for Dolphin";
     };
   };
 
@@ -34,8 +38,7 @@ in
             name = "dolphin-emu";
             desktopName = "Dolphin Emu";
             genericName = "GameCube Emulator";
-            exec =
-              "flatpak run --branch=stable --arch=${arch} ${flatpak} --open Dolphin";
+            exec = "flatpak run --branch=stable --arch=${arch} ${flatpak} --open Dolphin";
             icon = "dolphin-emu";
             terminal = false;
             type = "Application";
@@ -46,4 +49,3 @@ in
 
     ]);
 }
-
