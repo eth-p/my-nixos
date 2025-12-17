@@ -11,10 +11,6 @@
     nixpkgs.lib.nixosSystem {
       modules = [
         inputs.lanzaboote.nixosModules.lanzaboote
-        inputs.chaotic.nixosModules.nyx-cache
-        inputs.chaotic.nixosModules.nyx-overlay
-        inputs.chaotic.nixosModules.nyx-registry
-
         my-nixos.nixosModules.my-nixos
 
         {
@@ -23,7 +19,10 @@
         }
 
         (inputs: {
-          nixpkgs.overlays = [ my-nixos.overlays.default ];
+          nixpkgs.overlays = [
+            my-nixos.overlays.default
+            my-nixos.inputs.nix-cachyos-kernel.overlay
+          ];
         })
       ] ++ modules;
 

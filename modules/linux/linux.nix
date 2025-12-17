@@ -11,7 +11,7 @@ in
 {
   options.my-nixos.linux = {
     kernel = lib.mkOption {
-      type = lib.types.enum [ "latest" "cachyos-zen4" ];
+      type = lib.types.enum [ "latest" "cachyos" "cachyos-zen4" ];
       default = "latest";
       description = "the Linux kernel packages";
     };
@@ -31,8 +31,10 @@ in
       let
         kernels = {
           "latest" = pkgs.linuxPackages_latest;
-          "cachyos-zen4" =
-            pkgs.linuxPackages_cachyos-gcc.cachyOverride { mArch = "ZEN4"; };
+          "cachyos" = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+          "cachyos-zen4" = pkgs.linuxKernel.packagesFor (pkgs.cachyosKernels.linux-cachyos-latest.overrideAttrs (old: {
+            NIX_CFLAGS_COMPILE = [ (old.NIX_CFLAGS_COMPILE or "") "-march=znver4" ];
+          }));
         };
       in
       { boot.kernelPackages = kernels."${cfg.kernel}"; }
