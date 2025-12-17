@@ -43,9 +43,13 @@
 
         packages = (import ./packages/overlay.nix);
         externals = (
-          prev: final: {
-            kde-kwin-effects-forceblur-wayland = inputs.kwin-effects-forceblur.packages.${prev.system}.default;
-            kde-kwin-effects-forceblur-x11 = inputs.kwin-effects-forceblur.packages.${prev.system}.x11;
+          prev: final:
+          let
+            system = prev.stdenv.hostPlatform.system;
+          in
+          {
+            kde-kwin-effects-forceblur-wayland = inputs.kwin-effects-forceblur.packages.${system}.default;
+            kde-kwin-effects-forceblur-x11 = inputs.kwin-effects-forceblur.packages.${system}.x11;
           }
         );
       };
