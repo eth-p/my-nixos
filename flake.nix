@@ -19,7 +19,7 @@
       url = "github:eth-p/gamedownsights";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    kwin-effects-forceblur = {
+    kwin-effects-better-blur-dx = {
       url = "github:xarblu/kwin-effects-better-blur-dx";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -48,9 +48,12 @@
           let
             system = prev.stdenv.hostPlatform.system;
           in
-          {
-            kde-kwin-effects-forceblur-wayland = inputs.kwin-effects-forceblur.packages.${system}.default;
-            kde-kwin-effects-forceblur-x11 = inputs.kwin-effects-forceblur.packages.${system}.x11;
+          rec {
+            kde-kwin-effects-better-blur-dx-wayland =
+              inputs.kwin-effects-better-blur-dx.packages.${system}.default;
+            kde-kwin-effects-better-blur-dx-x11 = inputs.kwin-effects-better-blur-dx.packages.${system}.x11;
+            kde-kwin-effects-forceblur-wayland = kde-kwin-effects-better-blur-dx-wayland;
+            kde-kwin-effects-forceblur-x11 = kde-kwin-effects-better-blur-dx-x11;
           }
         );
       };

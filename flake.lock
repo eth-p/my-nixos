@@ -139,7 +139,7 @@
         "type": "github"
       }
     },
-    "kwin-effects-forceblur": {
+    "kwin-effects-better-blur-dx": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -147,11 +147,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1765228645,
-        "narHash": "sha256-OT+1DrnCVDqeYoLbyJ4qQbnUjuMgD/Ih6jpDdrf9iBE=",
+        "lastModified": 1765995103,
+        "narHash": "sha256-e9Al48mFQF8Kefmw8WyhGNTKcXZs51hKJCRAjzhMvTs=",
         "owner": "xarblu",
         "repo": "kwin-effects-better-blur-dx",
-        "rev": "a53f44698bb2f99cc8b6ea46f8f829c2f07e596b",
+        "rev": "b5f7dd94a6a7dd50e91a40000d77f1528b8a5f37",
         "type": "github"
       },
       "original": {
@@ -265,7 +265,7 @@
     "root": {
       "inputs": {
         "gamedownsights": "gamedownsights",
-        "kwin-effects-forceblur": "kwin-effects-forceblur",
+        "kwin-effects-better-blur-dx": "kwin-effects-better-blur-dx",
         "lanzaboote": "lanzaboote",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nixpkgs": "nixpkgs"
