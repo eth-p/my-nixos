@@ -38,6 +38,27 @@
         // inputs
       );
 
+      # packages evaluates ./packages/overlay.nix, returning a package
+      # derivation for each of the overlayed packages.
+      packages =
+        let
+          forEachSystem = nixpkgs.lib.genAttrs systems;
+          systems = [
+            "x86_64-linux"
+            "aarch64-linux"
+          ];
+        in
+        forEachSystem (
+          system:
+          let
+            pkgs = import nixpkgs {
+              inherit system;
+              overlays = [ self.overlays.packages ];
+            };
+          in
+          nixpkgs.lib.attrsets.mapAttrs (name: value: pkgs."${name}") (self.overlays.packages pkgs pkgs)
+        );
+
       # overlays provides nixpkgs overlays.
       overlays = {
         default = prev: final: (overlays.externals prev final) // (overlays.packages prev final);
