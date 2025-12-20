@@ -100,7 +100,9 @@ stdenv.mkDerivation rec {
       gpl2
       mit
     ];
-    maintainers = [ lib.maintainers.eth-p ];
+    maintainers = [
+      # lib.maintainers.eth-p
+    ];
     platforms = lib.platforms.linux;
   };
 }
