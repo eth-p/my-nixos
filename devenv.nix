@@ -20,6 +20,7 @@
     {
       packages = [
         pkgs.git
+        pkgs.nix-update
 
         # Formatters
         pkgs.treefmt
