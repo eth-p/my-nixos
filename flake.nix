@@ -13,6 +13,7 @@
     };
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     gamedownsights = {
       url = "github:eth-p/gamedownsights";
