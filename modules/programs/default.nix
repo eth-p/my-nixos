@@ -6,5 +6,6 @@ inputs: {
     ./retrodeck.nix
     ./rustdesk.nix
     ./steam.nix
+    ./proton-me
   ];
 }
