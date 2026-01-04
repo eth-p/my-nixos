@@ -64,6 +64,7 @@ in
         file
         pv
         killall
+        smartmontools
       ];
     }
 
