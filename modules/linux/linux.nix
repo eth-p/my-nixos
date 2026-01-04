@@ -65,6 +65,7 @@ in
         pv
         killall
         smartmontools
+        iotop
       ];
     }
 
