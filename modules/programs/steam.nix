@@ -85,6 +85,11 @@ in
           gamescope-wsi
           my-nixos.inputs.gamedownsights
         ];
+
+        # Enable ntsync driver.
+        boot.kernelModules = [
+          "ntsync"
+        ];
       }
     )
 
