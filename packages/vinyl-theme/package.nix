@@ -10,7 +10,8 @@
   python3,
   python3Packages,
   qt6Packages,
-  xorg,
+  xcursorgen,
+  libx11,
 }:
 stdenv.mkDerivation rec {
   pname = "vinyl-theme";
@@ -62,7 +63,7 @@ stdenv.mkDerivation rec {
     python3
     python3Packages.cairosvg
     python3Packages.lxml
-    xorg.xcursorgen
+    xcursorgen
 
     # Hooks.
     qt6Packages.wrapQtAppsHook
@@ -88,7 +89,7 @@ stdenv.mkDerivation rec {
     qt6Packages.qtbase
     qt6Packages.qtdeclarative
     qt6Packages.qtsvg
-    xorg.libX11
+    libx11
   ];
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
