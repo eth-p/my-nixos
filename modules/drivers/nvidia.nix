@@ -18,7 +18,7 @@ in
   options.my-nixos.drivers.nvidia = {
     enable = lib.mkEnableOption "install NVIDIA drivers";
     package = lib.mkOption {
-      default = (import ../patches/linux-nvidia-590.nix inputs);
+      default = (import ../patches/linux-nvidia-595.nix inputs);
       description = "the NVIDIA kernel packages";
     };
 
