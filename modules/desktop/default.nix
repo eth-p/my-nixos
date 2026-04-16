@@ -36,9 +36,6 @@ in
     mkIf cfg.enable (mkMerge [
 
       {
-        # Use SDDM as the display manager.
-        services.displayManager.sddm.enable = true;
-
         # Enable X11.
         services.xserver.enable = true;
       }
@@ -62,11 +59,6 @@ in
       # Use KDE Plasma as the default desktop environment.
       (mkIf (desktops.isPlasma de) {
         my-nixos.desktop.plasma.enable = true;
-        services.displayManager = {
-          sddm.enable = lib.mkForce false;
-          plasma-login-manager.enable = true;
-          defaultSession = "plasma";
-        };
       })
 
     ]);

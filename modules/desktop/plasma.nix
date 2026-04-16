@@ -49,14 +49,13 @@ in
 
       {
         # Install KDE Plasma.
-        services.displayManager.defaultSession = "plasma";
+        services.displayManager.plasma-login-manager.enable = true;
         services.desktopManager.plasma6.enable = true;
 
         # Install extra packages.
         environment.systemPackages = with pkgs; [
           kdePackages.discover
           kdePackages.filelight
-          kdePackages.sddm-kcm
           pinentry-qt
 
           vulkan-hdr-layer-kwin6
