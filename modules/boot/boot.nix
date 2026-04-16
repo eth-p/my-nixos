@@ -19,6 +19,19 @@ in
   options.my-nixos.boot = {
     secure-boot.enable = lib.mkEnableOption "Secure Boot using lanzaboote";
     tpm-unlock.enable = lib.mkEnableOption "use TPM to unlock LUKS-encrypted volumes";
+    measured-boot.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = ''
+        Automatically unlock LUKS2 volumes if the system boot chain is
+        cryptographically verified.
+
+        *This requires a manual setup step.*
+
+        Read the [Lanzaboote Measured Boot guide](https://nix-community.github.io/lanzaboote/how-to-guides/enable-measured-boot.html)
+        for more details.
+      '';
+    };
 
     verbose = lib.mkOption {
       type = lib.types.bool;
@@ -50,10 +63,29 @@ in
       environment.systemPackages = with pkgs; [ sbctl ];
     })
 
+    # Automatically unlock LUKS2 volumes if TPM 2.0 PCRs are in expected state.
+    # https://nix-community.github.io/lanzaboote/how-to-guides/enable-measured-boot.html
+    (mkIf cfg.measured-boot.enable {
+      boot.initrd.systemd.enable = lib.mkForce true;
+      # environment.systemPackages = with pkgs; [ tpm2-tss ];
+
+      # Limitation of systemd-pcrlock:
+      boot.lanzaboote.configurationLimit = 8;
+
+      boot.lanzaboote.measuredBoot = {
+        enable = true;
+        pcrs = [
+          0
+          4
+          7
+        ];
+      };
+    })
+
     # Enable features required for unlocking volumes via TPM 2.0.
     # Before enabling this, you must manually enroll the keys:
     #   sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 /dev/the-disk
-    (mkIf cfg.secure-boot.enable {
+    (mkIf cfg.tpm-unlock.enable {
       boot.initrd.systemd.enable = true;
       environment.systemPackages = with pkgs; [ tpm2-tss ];
     })
