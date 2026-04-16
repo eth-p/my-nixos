@@ -15,7 +15,7 @@
 }:
 stdenv.mkDerivation rec {
   pname = "vinyl-theme";
-  version = "6.5.3";
+  version = "6.6.3";
 
   outputs = [
     "out"
@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ekaaty";
     repo = "vinyl-theme";
-    tag = "v${version}";
-    sha256 = "sha256-c/uLCQ4h2EDpZT82LB4NRWmE5QBWX13C2cedeAe6yxg=";
+    rev = "8358bf1639e897d266c479240ac7994a1ee8e2c0";
+    sha256 = "sha256-QbivipDNLrdllF8ebC0ix+5vtKkvdnrqC0zsphrWSXQ=";
   };
 
   patches = [
