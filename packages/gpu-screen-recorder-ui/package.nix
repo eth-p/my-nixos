@@ -28,16 +28,18 @@
   wrapperDir ? "/run/wrappers/bin",
   gitUpdater,
   bash,
+  dbus,
+  desktop-file-utils,
 }:
 
 stdenv.mkDerivation rec {
   pname = "gpu-screen-recorder-ui";
-  version = "1.8.3";
+  version = "1.10.9";
 
   src = fetchgit {
     url = "https://repo.dec05eba.com/${pname}";
     tag = version;
-    hash = "sha256-KB4N5DwzPKYhqIi+IlvkS6ZRh3ByFPCfF75Hg+na7Q8=";
+    hash = "sha256-y5ZwUHyng9LARB1Bb2CIedqmcRCBNp/T+2gYwoD75gY=";
   };
 
   postPatch = ''
@@ -55,6 +57,7 @@ stdenv.mkDerivation rec {
     meson
     ninja
     makeWrapper
+    desktop-file-utils
   ];
 
   buildInputs = [
@@ -70,6 +73,7 @@ stdenv.mkDerivation rec {
     wayland
     wayland-scanner
     bash
+    dbus
   ];
 
   mesonFlags = [
