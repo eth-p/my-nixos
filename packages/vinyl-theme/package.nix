@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
   cmake,
-  extra-cmake-modules,
   gettext,
   kdePackages,
   python3,
@@ -55,7 +54,6 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     # Build system.
     cmake
-    extra-cmake-modules
     kdePackages.extra-cmake-modules
     gettext
 
