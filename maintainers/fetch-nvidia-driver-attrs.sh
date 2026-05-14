@@ -13,6 +13,7 @@ status() {
 
 hash_url() {
 	nix-hash --type sha256 --base32 --sri --flat <(
+		set -x
 		curl "$1" -fsL
 	)
 }
@@ -33,7 +34,7 @@ status "Fetching binary blob hashes (x86_64)..."
 sha256_64bit=$(hash_url "https://us.download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}.run")
 
 status "Fetching binary blob hashes (aarch64)..."
-sha256_aarch64=$(hash_url "https://us.download.nvidia.com/XFree86/Linux-aarch64/${version}/NVIDIA-Linux-aarch64-${version}.run")
+sha256_aarch64=$(hash_url "https://us.download.nvidia.com/XFree86/aarch64/${version}/NVIDIA-Linux-aarch64-${version}.run")
 
 status "Fetching open GPU kernel module hashes..."
 openSha256=$(hash_github "NVIDIA" "open-gpu-kernel-modules" "$version")
