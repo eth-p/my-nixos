@@ -43,6 +43,10 @@ in
             enable = cfg.enableGameMode;
             packages = pkgs': with pkgs'; [ gamemode ];
           }
+          {
+            enable = true;
+            packages = pkgs': with pkgs'; [ hidapi ];
+          }
         ];
         extraPkgs =
           pkgs':
