@@ -20,9 +20,11 @@
   libXcomposite,
   libXi,
   libXcursor,
+  libxkbcommon,
   libglvnd,
   libpulseaudio,
   libdrm,
+  pango,
   wayland,
   wayland-scanner,
   wrapperDir ? "/run/wrappers/bin",
@@ -34,12 +36,12 @@
 
 stdenv.mkDerivation rec {
   pname = "gpu-screen-recorder-ui";
-  version = "1.10.9";
+  version = "1.13.5";
 
   src = fetchgit {
     url = "https://repo.dec05eba.com/${pname}";
     tag = version;
-    hash = "sha256-y5ZwUHyng9LARB1Bb2CIedqmcRCBNp/T+2gYwoD75gY=";
+    hash = "sha256-ObIN8qD+34nXZv6v6vLK3f6bezVSXqOd0xPGci52awU=";
   };
 
   postPatch = ''
@@ -47,9 +49,6 @@ stdenv.mkDerivation rec {
       --replace-fail "libGL.so.1" "${lib.getLib libglvnd}/lib/libGL.so.1" \
       --replace-fail "libGLX.so.0" "${lib.getLib libglvnd}/lib/libGLX.so.0" \
       --replace-fail "libEGL.so.1" "${lib.getLib libglvnd}/lib/libEGL.so.1"
-
-    substituteInPlace extra/gpu-screen-recorder-ui.service \
-      --replace-fail "ExecStart=${meta.mainProgram}" "ExecStart=$out/bin/${meta.mainProgram}"
   '';
 
   nativeBuildInputs = [
@@ -67,9 +66,11 @@ stdenv.mkDerivation rec {
     libXcomposite
     libXi
     libXcursor
+    libxkbcommon
     libglvnd
     libpulseaudio
     libdrm
+    pango
     wayland
     wayland-scanner
     bash
