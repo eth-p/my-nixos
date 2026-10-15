@@ -22,7 +22,8 @@ in
     };
 
     command-not-found = lib.mkEnableOption "enable command-not-found" // {
-      default = true;
+      # https://github.com/NixOS/nixpkgs/issues/564286
+      # default = true;
     };
 
     trusted-users = lib.mkOption {
