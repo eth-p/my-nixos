@@ -25,7 +25,7 @@
         # Formatters
         pkgs.treefmt
         pkgs.shfmt
-        pkgs.nixfmt-rfc-style
+        pkgs.nixfmt
       ];
 
       # https://devenv.sh/tasks/
