@@ -17,6 +17,7 @@
     nixpkgs.lib.nixosSystem {
       modules = [
         inputs.lanzaboote.nixosModules.lanzaboote
+        inputs.artcraft.nixosModules.default
         my-nixos.nixosModules.my-nixos
 
         {

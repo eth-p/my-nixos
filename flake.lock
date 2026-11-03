@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "artcraft": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793623655,
+        "narHash": "sha256-mR38FgyU7kyj1AFfOHB9uD/jaTeAyCU6IdcySnTFJzg=",
+        "owner": "ipeglin",
+        "repo": "artcraft-nix",
+        "rev": "15736a606aa7af53e0ceb4a6e98b149a98e8c4e5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipeglin",
+        "repo": "artcraft-nix",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1781825982,
@@ -230,6 +250,7 @@
     },
     "root": {
       "inputs": {
+        "artcraft": "artcraft",
         "gamedownsights": "gamedownsights",
         "kwin-effects-better-blur-dx": "kwin-effects-better-blur-dx",
         "lanzaboote": "lanzaboote",
