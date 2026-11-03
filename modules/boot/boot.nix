@@ -86,7 +86,6 @@ in
     # Before enabling this, you must manually enroll the keys:
     #   sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 /dev/the-disk
     (mkIf cfg.tpm-unlock.enable {
-      boot.initrd.systemd.enable = true;
       environment.systemPackages = with pkgs; [ tpm2-tss ];
     })
 
